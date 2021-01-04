@@ -1,3 +1,4 @@
 #!/bin/bash
 
-cd /Eureka && chmod +x build.sh && ./build.sh
+cd ConfigurationService && chmod +x build.sh && ./build.sh
+cd ../EurekaService && chmod +x build.sh && ./build.sh

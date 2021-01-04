@@ -12,6 +12,20 @@ services:
       - static-network
     ports:
       - "8761:8761"
+  
+  configuration-service:
+    image: configuration-service
+    container_name: configuration-service
+    build: 
+      context: ./ConfigurationService
+      dockerfile: Dockerfile
+    tty: true
+    networks:
+      - static-network
+    ports:
+      - "8888:8888"
+    depends_on: 
+      - eureka-service
 
 networks:
   static-network:
