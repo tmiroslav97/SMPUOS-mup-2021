@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+
+  eureka-service:
+    image: eureka-service
+    container_name: eureka-service
+    build: 
+      context: ./EurekaService
+      dockerfile: Dockerfile
+    tty: true
+    networks:
+      - static-network
+    ports:
+      - "8761:8761"
+
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
