@@ -1,0 +1,24 @@
+spring:
+  application:
+    # sets the name in Eureka
+    name: ${SPRINGBOOT.APP.NAME:eureka-service}
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: ${SPRINGBOOT.APP.NAME:eureka-service}
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${REGISTRY.HOST:localhost}:${SERVER.PORT}/eureka/
+
+logging:
+  level:
+    com:
+      netflix:
+        eureka: OFF
+        discovery: OFF
