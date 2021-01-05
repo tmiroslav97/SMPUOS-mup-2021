@@ -109,7 +109,7 @@ services:
     ports:
       - "8086:8086"
     environment:
-      REGISTRY_HOST: health-service
+      REGISTRY_HOST: eureka-service
       DATABASE_USERNAME: root
       DATABASE_PASSWORD: root
       DATABASE_DOMAIN: mysql-health
@@ -117,6 +117,28 @@ services:
     depends_on: 
       - eureka-service
       - mysql-health
+
+  police-service:
+    image: police-service
+    container_name: police-service
+    build: 
+      context: ./PoliceService/PoliceService
+      dockerfile: Dockerfile
+    tty: true
+    restart: on-failure
+    networks:
+      - static-network
+    ports:
+      - "8087:8087"
+    environment:
+      REGISTRY_HOST: eureka-service
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: root
+      DATABASE_DOMAIN: mysql-police
+      DATABASE_SCHEMA: police_db?createDatabaseIfNotExist=true&serverTimezone=UTC
+    depends_on: 
+      - eureka-service
+      - mysql-police
 
   zuul:
     image: zuul
@@ -137,6 +159,7 @@ services:
       - counter-service
       - vehicle-service
       - health-service
+      - police-service
 
   mysql-centralregistry:
     image: mysql:8.0.19
