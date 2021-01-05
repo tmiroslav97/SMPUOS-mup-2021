@@ -110,35 +110,34 @@ services:
       - "8086:8086"
     environment:
       REGISTRY_HOST: eureka-service
-      DATABASE_USERNAME: root
-      DATABASE_PASSWORD: root
-      DATABASE_DOMAIN: mysql-health
-      DATABASE_SCHEMA: health_db?createDatabaseIfNotExist=true&serverTimezone=UTC
+      DATABASE_NAME: health-service
+      DATABASE_DOMAIN: mongodb
+      DATABASE_PORT: 27017
     depends_on: 
       - eureka-service
-      - mysql-health
+      - mongodb
 
-  police-service:
-    image: police-service
-    container_name: police-service
-    build: 
-      context: ./PoliceService/PoliceService
-      dockerfile: Dockerfile
-    tty: true
-    restart: on-failure
-    networks:
-      - static-network
-    ports:
-      - "8087:8087"
-    environment:
-      REGISTRY_HOST: eureka-service
-      DATABASE_USERNAME: root
-      DATABASE_PASSWORD: root
-      DATABASE_DOMAIN: mysql-police
-      DATABASE_SCHEMA: police_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-    depends_on: 
-      - eureka-service
-      - mysql-police
+  # police-service:
+  #   image: police-service
+  #   container_name: police-service
+  #   build: 
+  #     context: ./PoliceService/PoliceService
+  #     dockerfile: Dockerfile
+  #   tty: true
+  #   restart: on-failure
+  #   networks:
+  #     - static-network
+  #   ports:
+  #     - "8087:8087"
+  #   environment:
+  #     REGISTRY_HOST: eureka-service
+  #     DATABASE_USERNAME: root
+  #     DATABASE_PASSWORD: root
+  #     DATABASE_DOMAIN: mysql-police
+  #     DATABASE_SCHEMA: police_db?createDatabaseIfNotExist=true&serverTimezone=UTC
+  #   depends_on: 
+  #     - eureka-service
+  #     - mysql-police
 
   zuul:
     image: zuul
@@ -197,29 +196,22 @@ services:
     volumes:
       - db-data:/var/lib/mysql-vehicle
 
-  mysql-health:
-    image: mysql:8.0.19
-    container_name: mysql-health
-    restart: always
-    networks:
-      - static-network
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: health_db
+  mongodb:
+    image: mongo
     volumes:
-      - db-data:/var/lib/mysql-health
+      - db-data:/var/lib/mongo-data
   
-  mysql-police:
-    image: mysql:8.0.19
-    container_name: mysql-police
-    restart: always
-    networks:
-      - static-network
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: police_db
-    volumes:
-      - db-data:/var/lib/mysql-police
+  # mysql-police:
+  #   image: mysql:8.0.19
+  #   container_name: mysql-police
+  #   restart: always
+  #   networks:
+  #     - static-network
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: police_db
+  #   volumes:
+  #     - db-data:/var/lib/mysql-police
 
   rabbitmq-broker:
       image: rabbitmq:management-alpine
