@@ -5,7 +5,7 @@ COPY . .
 RUN ["mvn", "package", "-DskipTests"]
 
 FROM openjdk:8-jdk-alpine
-WORKDIR /eureka
+WORKDIR /config
 COPY --from=config-back /usr/src/config/target/configuration-service.jar ./
 
 EXPOSE 8888

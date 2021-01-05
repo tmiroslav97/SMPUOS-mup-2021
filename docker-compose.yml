@@ -73,7 +73,29 @@ services:
     depends_on: 
       - eureka-service
       - mysql-counter
-    
+
+  vehicle-service:
+    image: vehicle-service
+    container_name: vehicle-service
+    build: 
+      context: ./VehicleService
+      dockerfile: Dockerfile
+    tty: true
+    restart: on-failure
+    networks:
+      - static-network
+    ports:
+      - "8085:8085"
+    environment:
+      REGISTRY_HOST: eureka-service
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: root
+      DATABASE_DOMAIN: mysql-vehicle
+      DATABASE_SCHEMA: vehicle_db?createDatabaseIfNotExist=true&serverTimezone=UTC
+    depends_on: 
+      - eureka-service
+      - mysql-vehicle
+
   zuul:
     image: zuul
     container_name: zuul
@@ -91,6 +113,7 @@ services:
       - eureka-service
       - centralregistry-service
       - counter-service
+      - vehicle-service
 
   mysql-centralregistry:
     image: mysql:8.0.19
