@@ -148,7 +148,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: centralregistry_db
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql-centralregistry
 
   mysql-counter:
     image: mysql:8.0.19
@@ -160,7 +160,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: counter_db
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql-counter
 
   mysql-vehicle:
     image: mysql:8.0.19
@@ -172,7 +172,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: vehicle_db
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql-vehicle
 
   mysql-health:
     image: mysql:8.0.19
@@ -184,7 +184,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: health_db
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql-health
   
   mysql-police:
     image: mysql:8.0.19
@@ -196,7 +196,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: police_db
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql-police
 
   rabbitmq-broker:
       image: rabbitmq:management-alpine
