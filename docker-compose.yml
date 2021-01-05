@@ -20,6 +20,7 @@ services:
       context: ./ConfigurationService
       dockerfile: Dockerfile
     tty: true
+    restart: on-failure
     networks:
       - static-network
     ports:
