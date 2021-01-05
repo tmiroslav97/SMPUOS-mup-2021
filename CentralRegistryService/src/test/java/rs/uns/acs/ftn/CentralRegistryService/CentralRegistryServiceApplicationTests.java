@@ -1,10 +1,10 @@
-package rs.uns.acs.ftn.CentralRegistry;
+package rs.uns.acs.ftn.CentralRegistryService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CentralRegistryApplicationTests {
+class CentralRegistryServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

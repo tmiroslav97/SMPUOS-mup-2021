@@ -20,7 +20,7 @@ services:
       context: ./ConfigurationService
       dockerfile: Dockerfile
     environment:
-      - REGISTRY_HOST=eureka-service
+      REGISTRY_HOST: eureka-service
     tty: true
     restart: on-failure
     networks:
@@ -29,15 +29,37 @@ services:
       - "8888:8888"
     depends_on: 
       - eureka-service
+  
+  centralregistry-service:
+    image: centralregistry-service
+    container_name: centralregistry-service
+    build: 
+      context: ./CentralRegistryService
+      dockerfile: Dockerfile
+    tty: true
+    restart: on-failure
+    networks:
+      - static-network
+    ports:
+      - "8083:8083"
+    environment:
+      REGISTRY_HOST: eureka-service
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: root
+      DATABASE_DOMAIN: mysql-centralregistry
+      DATABASE_SCHEMA: centralregistry_db?createDatabaseIfNotExist=true&serverTimezone=UTC
+    depends_on: 
+      - eureka-service
+      - mysql-centralregistry
     
   zuul:
     image: zuul
     container_name: zuul
     build: 
-      context: ./zuul
+      context: ./Zuul
       dockerfile: Dockerfile
     environment:
-      - REGISTRY_HOST=eureka-service
+      REGISTRY_HOST: eureka-service
     tty: true
     networks:
       - static-network
@@ -45,6 +67,31 @@ services:
       - "8082:8082"
     depends_on:
       - eureka-service
+      - centralregistry-service
+
+  mysql-centralregistry:
+    image: mysql:8.0.19
+    container_name: mysql-centralregistry
+    restart: always
+    networks:
+      - static-network
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: centralregistry_db
+    volumes:
+      - db-data:/var/lib/mysql
+
+
+  rabbitmq-broker:
+      image: rabbitmq:management-alpine
+      container_name: rabbitmq-broker
+      ports:
+        - 5672:5672
+        - 15672:15672
+      networks:
+        - static-network
+volumes:
+  db-data:
 
 networks:
   static-network:
