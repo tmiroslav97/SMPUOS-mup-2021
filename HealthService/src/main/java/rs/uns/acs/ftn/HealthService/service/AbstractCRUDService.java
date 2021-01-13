@@ -21,6 +21,10 @@ public abstract class AbstractCRUDService<T, ID extends Serializable> {
         return repo.findAll(pageable);
     }
 
+    public List<T> findAll() {
+        return (List<T>) repo.findAll();
+    }
+
     public List<T> findByIds(List<ID> ids) {
         List<T> elements = new ArrayList<T>();
         ids.forEach(id -> elements.add(this.findOne(id)));
