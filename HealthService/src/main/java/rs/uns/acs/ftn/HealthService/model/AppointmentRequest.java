@@ -1,43 +1,37 @@
 package rs.uns.acs.ftn.HealthService.model;
 
-import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Setter
-@Getter
+import java.util.Date;
+
 @Document
-public class Nurse {
+public class AppointmentRequest {
 
     @Id
     private String id;
-    @Indexed(unique = true)
-    private String email;
-    @Indexed(unique = true)
-    private String password;
+    @Indexed
     private String firstName;
     private String lastName;
-    private RoleEnum role;
+    private String email;
+    private Date date;
 
-    public Nurse() {
+    public AppointmentRequest() {
     }
 
-    public Nurse(String firstName, String lastName, String email, String password) {
+    public AppointmentRequest(String firstName, String lastName, String email, Date date) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
-        this.role = RoleEnum.ROLE_NURSE;
+        this.date = date;
     }
 
-    public Nurse(String id, String firstName, String lastName, String email, String password, RoleEnum roleEnum) {
+    public AppointmentRequest(String id, String firstName, String lastName, String email, Date date) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
-        this.role = roleEnum;
+        this.date = date;
     }
-
 }
