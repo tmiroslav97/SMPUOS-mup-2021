@@ -13,7 +13,6 @@ public class DoctorController extends AbstractRESTController<Doctor, String> {
 
     private DoctorService doctorService;
 
-    @Autowired
     public DoctorController(DoctorServiceImpl doctorServiceImpl) {
         super(doctorServiceImpl);
         this.doctorService = doctorServiceImpl;

@@ -22,9 +22,6 @@ public abstract class AbstractRESTController<T, ID extends Serializable> {
 
     private Logger logger = LoggerFactory.getLogger(AbstractRESTController.class);
 
-    @Value("${general.pageSize}")
-    protected Integer pageSize;
-
     private AbstractCRUDService<T, ID> service;
 
     /**

@@ -13,7 +13,6 @@ public class AppointmentRequestController extends AbstractRESTController<Appoint
 
     private AppointmentRequestService appointmentRequestService;
 
-    @Autowired
     public AppointmentRequestController(AppointmentRequestServiceImpl appointmentRequestServiceImpl) {
         super(appointmentRequestServiceImpl);
         this.appointmentRequestService = appointmentRequestServiceImpl;

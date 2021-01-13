@@ -13,7 +13,6 @@ public class NurseController extends AbstractRESTController<Nurse, String> {
 
     private NurseService nurseService;
 
-    @Autowired
     public NurseController(NurseServiceImpl nurseServiceImpl) {
         super(nurseServiceImpl);
         this.nurseService = nurseServiceImpl;

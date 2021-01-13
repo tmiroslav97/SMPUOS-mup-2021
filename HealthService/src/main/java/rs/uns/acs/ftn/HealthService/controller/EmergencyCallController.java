@@ -5,9 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rs.uns.acs.ftn.HealthService.model.EmergencyCall;
 import rs.uns.acs.ftn.HealthService.service.EmergencyCallService;
-import rs.uns.acs.ftn.HealthService.service.NurseService;
 import rs.uns.acs.ftn.HealthService.service.impl.EmergencyCallServiceImpl;
-import rs.uns.acs.ftn.HealthService.service.impl.NurseServiceImpl;
 
 @RestController
 @RequestMapping(value = "/emr-call")
@@ -15,9 +13,8 @@ public class EmergencyCallController extends AbstractRESTController<EmergencyCal
 
     private EmergencyCallService emergencyCallService;
 
-    @Autowired
-    public EmergencyCallController(EmergencyCallServiceImpl emergencyCallService) {
-        super(emergencyCallService);
-        this.emergencyCallService = emergencyCallService;
+    public EmergencyCallController(EmergencyCallServiceImpl emergencyCallServiceImpl) {
+        super(emergencyCallServiceImpl);
+        this.emergencyCallService = emergencyCallServiceImpl;
     }
 }
