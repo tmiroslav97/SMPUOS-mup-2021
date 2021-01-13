@@ -1,4 +1,4 @@
-package rs.uns.acs.ftn.Zuul;
+package rs.ac.uns.ftn.acs.Zuul;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
