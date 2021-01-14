@@ -8,6 +8,7 @@ import rs.uns.acs.ftn.HealthService.repository.AppointmentRequestRepository;
 import rs.uns.acs.ftn.HealthService.service.AbstractCRUDService;
 import rs.uns.acs.ftn.HealthService.service.AppointmentRequestService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,5 +38,24 @@ public class AppointmentRequestServiceImpl extends AbstractCRUDService<Appointme
             }
         });
         return appointmentRequestRepository.saveAll(appointmentRequests);
+    }
+
+    @Override
+    public List<AppointmentRequest> findAllByAppointmentRequestStatusEnum(String status) {
+        AppointmentRequestStatusEnum appointmentRequestStatusEnum = null;
+        switch (status) {
+            case "pending":
+                appointmentRequestStatusEnum = AppointmentRequestStatusEnum.PENDING;
+                break;
+            case "accepted":
+                appointmentRequestStatusEnum = AppointmentRequestStatusEnum.ACCEPTED;
+                break;
+            case "rejected":
+                appointmentRequestStatusEnum = AppointmentRequestStatusEnum.REJECTED;
+                break;
+            default:
+                return new ArrayList<>();
+        }
+        return appointmentRequestRepository.findAllByAppointmentRequestStatusEnum(appointmentRequestStatusEnum);
     }
 }
