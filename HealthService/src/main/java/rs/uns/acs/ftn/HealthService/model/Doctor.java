@@ -1,5 +1,6 @@
 package rs.uns.acs.ftn.HealthService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -22,6 +23,8 @@ public class Doctor {
     private String firstName;
     private String lastName;
     private RoleEnum role;
+
+    @JsonIgnore
     @DBRef(lazy = true)
     private List<Appointment> appointments;
 

@@ -13,6 +13,8 @@ import rs.uns.acs.ftn.HealthService.service.AppointmentRequestService;
 import rs.uns.acs.ftn.HealthService.service.AppointmentService;
 import rs.uns.acs.ftn.HealthService.service.DoctorService;
 
+import java.util.List;
+
 @Service
 public class AppointmentServiceImpl extends AbstractCRUDService<Appointment, String> implements AppointmentService {
 
@@ -64,5 +66,10 @@ public class AppointmentServiceImpl extends AbstractCRUDService<Appointment, Str
         doctorService.saveDoctor(doctor);
 
         return appointment;
+    }
+
+    @Override
+    public List<Appointment> findAllByDoctorId(String doctorId) {
+        return appointmentRepository.findAllByDoctorId(doctorId);
     }
 }
