@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import rs.uns.acs.ftn.HealthService.model.enumeration.RoleEnum;
 
 @Setter
 @Getter

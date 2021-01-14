@@ -1,14 +1,13 @@
 package rs.uns.acs.ftn.HealthService.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import rs.uns.acs.ftn.HealthService.model.enumeration.AppointmentRequestStatusEnum;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,23 +26,26 @@ public class AppointmentRequest {
     private String lastName;
     private String email;
     private Date date;
+    private AppointmentRequestStatusEnum appointmentRequestStatusEnum;
 
     public AppointmentRequest() {
     }
 
-    public AppointmentRequest(String firstName, String lastName, String email, Date date) {
+    public AppointmentRequest(String firstName, String lastName, String email, Date date, AppointmentRequestStatusEnum appointmentRequestStatusEnum) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.date = date;
+        this.appointmentRequestStatusEnum = appointmentRequestStatusEnum;
     }
 
-    public AppointmentRequest(String id, String firstName, String lastName, String email, Date date) {
+    public AppointmentRequest(String id, String firstName, String lastName, String email, Date date, AppointmentRequestStatusEnum appointmentRequestStatusEnum) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.date = date;
+        this.appointmentRequestStatusEnum = appointmentRequestStatusEnum;
     }
 
     @JsonGetter("date")
