@@ -43,7 +43,7 @@ public abstract class AbstractRESTController<T, ID extends Serializable> {
         return prepareList(all);
     }
 
-    @RequestMapping(value = "findByIds", method = RequestMethod.GET)
+    @RequestMapping(value = "/findByIds", method = RequestMethod.GET)
     public List<T> findByIds(
             @RequestParam(name = "ids") List<ID> ids) {
         return service.findByIds(ids);
@@ -72,6 +72,23 @@ public abstract class AbstractRESTController<T, ID extends Serializable> {
         logger.debug("create() - {} - {}", newEntity, newEntity.getClass());
 
         T created = service.save(newEntity);
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("success", true);
+        m.put("created", created);
+        return m;
+    }
+
+    /**
+     * Save multiple entities to a database.
+     *
+     * @param newEntities Entities to be saved.
+     * @return Saved entity objects.
+     */
+    @RequestMapping(value="/all", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public Map<String, Object> save(@RequestBody List<T> newEntities) {
+        logger.debug("create() - {} - {}", newEntities, newEntities.getClass());
+
+        List<T> created = service.save(newEntities);
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("success", true);
         m.put("created", created);

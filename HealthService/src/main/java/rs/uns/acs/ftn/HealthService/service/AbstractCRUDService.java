@@ -35,6 +35,11 @@ public abstract class AbstractCRUDService<T, ID extends Serializable> {
         return repo.save(entity);
     }
 
+    public List<T> save(List<T> entities) {
+        return (List<T>) repo.saveAll(entities);
+    }
+
+
     public T findOne(ID id) {
         return repo.findById(id).orElseGet(null);
     }
