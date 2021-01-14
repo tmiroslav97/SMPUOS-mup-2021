@@ -8,6 +8,7 @@ import rs.uns.acs.ftn.HealthService.repository.AppointmentRequestRepository;
 import rs.uns.acs.ftn.HealthService.service.AbstractCRUDService;
 import rs.uns.acs.ftn.HealthService.service.AppointmentRequestService;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,9 @@ public class AppointmentRequestServiceImpl extends AbstractCRUDService<Appointme
 
     @Override
     public AppointmentRequest save(AppointmentRequest appointmentRequest) {
+        if (appointmentRequest.getEmail() == null || appointmentRequest.getDate().before(Date.valueOf(java.time.LocalDate.now()))) {
+            return null;
+        }
         if (appointmentRequest.getAppointmentRequestStatusEnum() == null) {
             appointmentRequest.setAppointmentRequestStatusEnum(AppointmentRequestStatusEnum.PENDING);
         }

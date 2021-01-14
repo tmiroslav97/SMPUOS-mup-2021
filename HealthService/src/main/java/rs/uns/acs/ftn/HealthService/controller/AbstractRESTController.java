@@ -73,8 +73,12 @@ public abstract class AbstractRESTController<T, ID extends Serializable> {
 
         T created = service.save(newEntity);
         Map<String, Object> m = new HashMap<String, Object>();
-        m.put("success", true);
-        m.put("created", created);
+        if (created == null) {
+            m.put("success", false);
+        } else {
+            m.put("success", true);
+            m.put("created", created);
+        }
         return m;
     }
 
@@ -84,7 +88,7 @@ public abstract class AbstractRESTController<T, ID extends Serializable> {
      * @param newEntities Entities to be saved.
      * @return Saved entity objects.
      */
-    @RequestMapping(value="/all", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/all", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Map<String, Object> save(@RequestBody List<T> newEntities) {
         logger.debug("create() - {} - {}", newEntities, newEntities.getClass());
 
