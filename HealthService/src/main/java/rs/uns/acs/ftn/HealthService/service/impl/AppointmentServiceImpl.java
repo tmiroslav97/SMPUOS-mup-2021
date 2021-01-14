@@ -100,4 +100,9 @@ public class AppointmentServiceImpl extends AbstractCRUDService<Appointment, Str
 
         return appointmentRepository.findAllByDoctorIdAndStartDateTimeBetween(doctorId, startDate, endDate);
     }
+
+    @Override
+    public Appointment findById(String id) {
+        return this.findOne(id);
+    }
 }

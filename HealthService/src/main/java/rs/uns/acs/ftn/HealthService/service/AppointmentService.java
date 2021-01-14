@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface AppointmentService {
     Appointment create(AppointmentDTO newEntity);
+
     List<Appointment> findAllByDoctorId(String doctorId);
+
     List<Appointment> findAllByDoctorIdAndDate(String doctorId, String date) throws ParseException;
+
+    Appointment findById(String id);
 }
