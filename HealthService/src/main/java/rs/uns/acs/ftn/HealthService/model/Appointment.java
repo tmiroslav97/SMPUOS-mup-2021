@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import rs.uns.acs.ftn.HealthService.model.enumeration.AppReqProviderEnum;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -25,11 +26,12 @@ public class Appointment {
     private Date startDateTime;
     private Date endDateTime;
     private String doctorId;
+    private AppReqProviderEnum appReqProviderEnum;
 
     public Appointment() {
     }
 
-    public Appointment(String id, String firstName, String lastName, String email, Date startDateTime, Date endDateTime, String doctorId) {
+    public Appointment(String id, String firstName, String lastName, String email, Date startDateTime, Date endDateTime, String doctorId, AppReqProviderEnum appReqProviderEnum) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,6 +39,7 @@ public class Appointment {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.doctorId = doctorId;
+        this.appReqProviderEnum = appReqProviderEnum;
     }
 
     @JsonGetter("startDateTime")

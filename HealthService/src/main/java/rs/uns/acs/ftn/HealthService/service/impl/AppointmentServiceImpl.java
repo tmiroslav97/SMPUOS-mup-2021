@@ -65,6 +65,7 @@ public class AppointmentServiceImpl extends AbstractCRUDService<Appointment, Str
         appointment.setStartDateTime(newEntity.getStartDateTime());
         appointment.setEndDateTime(newEntity.getEndDateTime());
         appointment.setDoctorId(doctor.getId());
+        appointment.setAppReqProviderEnum(appointmentRequest.getAppReqProviderEnum());
         appointment = appointmentRepository.save(appointment);
         appointmentRequest.setAppointmentRequestStatusEnum(AppointmentRequestStatusEnum.ACCEPTED);
         appointmentRequestService.saveAppointmentRequest(appointmentRequest);
