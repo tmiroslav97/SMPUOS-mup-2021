@@ -62,4 +62,19 @@ public class AppointmentRequestServiceImpl extends AbstractCRUDService<Appointme
         }
         return appointmentRequestRepository.findAllByAppointmentRequestStatusEnum(appointmentRequestStatusEnum);
     }
+
+    @Override
+    public Boolean rejectAppointmentRequest(String id) {
+        AppointmentRequest appointmentRequest = this.findOne(id);
+        if (appointmentRequest == null) {
+            return false;
+        }
+        if (appointmentRequest.getAppointmentRequestStatusEnum() == AppointmentRequestStatusEnum.PENDING) {
+            appointmentRequest.setAppointmentRequestStatusEnum(AppointmentRequestStatusEnum.REJECTED);
+            this.save(appointmentRequest);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -10,6 +10,7 @@ import rs.uns.acs.ftn.HealthService.model.enumeration.AppointmentRequestStatusEn
 import rs.uns.acs.ftn.HealthService.service.AppointmentRequestService;
 import rs.uns.acs.ftn.HealthService.service.impl.AppointmentRequestServiceImpl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,5 +30,13 @@ public class AppointmentRequestController extends AbstractRESTController<Appoint
         List<AppointmentRequest> all = appointmentRequestService.findAllByAppointmentRequestStatusEnum(status);
 
         return prepareList(all);
+    }
+
+    @RequestMapping(value = "/{id}/reject", method = RequestMethod.PUT)
+    public Map<String, Object> rejectAppointmentRequest(@PathVariable String id) {
+        Boolean succ = appointmentRequestService.rejectAppointmentRequest(id);
+        Map<String, Object> m = new HashMap<>();
+        m.put("success", succ);
+        return m;
     }
 }

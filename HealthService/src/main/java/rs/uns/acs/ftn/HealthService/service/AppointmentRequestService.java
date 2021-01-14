@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface AppointmentRequestService {
     List<AppointmentRequest> findAllByAppointmentRequestStatusEnum(String appointmentRequestStatusEnum);
+    Boolean rejectAppointmentRequest(String id);
 }
