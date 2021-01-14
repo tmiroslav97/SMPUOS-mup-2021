@@ -24,17 +24,19 @@ public class Appointment {
     private String email;
     private Date startDateTime;
     private Date endDateTime;
+    private String doctorId;
 
     public Appointment() {
     }
 
-    public Appointment(String id, String firstName, String lastName, String email, Date startDateTime, Date endDateTime) {
+    public Appointment(String id, String firstName, String lastName, String email, Date startDateTime, Date endDateTime, String doctorId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
+        this.doctorId = doctorId;
     }
 
     @JsonGetter("startDateTime")

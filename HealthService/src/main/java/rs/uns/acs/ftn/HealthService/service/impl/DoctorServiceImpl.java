@@ -17,4 +17,14 @@ public class DoctorServiceImpl extends AbstractCRUDService<Doctor, String> imple
         super(doctorRepository);
         this.doctorRepository = doctorRepository;
     }
+
+    @Override
+    public Doctor findById(String id) {
+        return this.findOne(id);
+    }
+
+    @Override
+    public Doctor saveDoctor(Doctor doctor) {
+        return this.save(doctor);
+    }
 }

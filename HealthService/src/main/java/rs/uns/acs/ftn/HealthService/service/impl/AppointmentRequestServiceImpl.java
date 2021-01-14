@@ -77,4 +77,14 @@ public class AppointmentRequestServiceImpl extends AbstractCRUDService<Appointme
             return false;
         }
     }
+
+    @Override
+    public AppointmentRequest findById(String id) {
+        return this.findOne(id);
+    }
+
+    @Override
+    public AppointmentRequest saveAppointmentRequest(AppointmentRequest appointmentRequest) {
+        return this.save(appointmentRequest);
+    }
 }
