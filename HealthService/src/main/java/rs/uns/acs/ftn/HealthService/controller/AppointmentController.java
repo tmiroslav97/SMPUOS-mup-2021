@@ -9,6 +9,7 @@ import rs.uns.acs.ftn.HealthService.model.Appointment;
 import rs.uns.acs.ftn.HealthService.service.AppointmentService;
 import rs.uns.acs.ftn.HealthService.service.impl.AppointmentServiceImpl;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,13 @@ public class AppointmentController extends AbstractRESTController<Appointment, S
     public List<Appointment> findAllByDoctorId(@PathVariable String id) {
 
         List<Appointment> appointments = appointmentService.findAllByDoctorId(id);
+        return appointments;
+    }
+
+    @RequestMapping(value = "/doctor/{id}/{date}", method = RequestMethod.GET)
+    public List<Appointment> findAllByDoctorId(@PathVariable String id, @PathVariable String date) throws ParseException {
+
+        List<Appointment> appointments = appointmentService.findAllByDoctorIdAndDate(id, date);
         return appointments;
     }
 }

@@ -3,16 +3,19 @@ package rs.uns.acs.ftn.HealthService.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.uns.acs.ftn.HealthService.dto.AppointmentDTO;
+import rs.uns.acs.ftn.HealthService.dto.EmailDTO;
 import rs.uns.acs.ftn.HealthService.model.Appointment;
 import rs.uns.acs.ftn.HealthService.model.AppointmentRequest;
 import rs.uns.acs.ftn.HealthService.model.Doctor;
 import rs.uns.acs.ftn.HealthService.model.enumeration.AppointmentRequestStatusEnum;
 import rs.uns.acs.ftn.HealthService.repository.AppointmentRepository;
-import rs.uns.acs.ftn.HealthService.service.AbstractCRUDService;
-import rs.uns.acs.ftn.HealthService.service.AppointmentRequestService;
-import rs.uns.acs.ftn.HealthService.service.AppointmentService;
-import rs.uns.acs.ftn.HealthService.service.DoctorService;
+import rs.uns.acs.ftn.HealthService.service.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,6 +28,9 @@ public class AppointmentServiceImpl extends AbstractCRUDService<Appointment, Str
 
     @Autowired
     DoctorService doctorService;
+
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     public AppointmentServiceImpl(AppointmentRepository appointmentRepository) {
@@ -65,11 +71,32 @@ public class AppointmentServiceImpl extends AbstractCRUDService<Appointment, Str
         doctor.getAppointments().add(appointment);
         doctorService.saveDoctor(doctor);
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String startDateTimeStr = dateFormat.format(appointment.getStartDateTime());
+        String endDateTimeStr = dateFormat.format(appointment.getEndDateTime());
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setSubject("Rezervisanje termina pregleda");
+        emailDTO.setReciever(appointment.getEmail());
+        emailDTO.setMessage(String.format("Postovani/a,\nRezervisan vam je termin za pregled %s u periodu:\n%s-%s\nJedinstveni broj:%s", startDateTimeStr.split(" ")[0], startDateTimeStr.split(" ")[1], endDateTimeStr.split(" ")[1], appointment.getId()));
+        emailService.sendMailTo(emailDTO);
+
         return appointment;
     }
 
     @Override
     public List<Appointment> findAllByDoctorId(String doctorId) {
         return appointmentRepository.findAllByDoctorId(doctorId);
+    }
+
+    @Override
+    public List<Appointment> findAllByDoctorIdAndDate(String doctorId, String date) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = sdf.parse(date);
+        Calendar c = Calendar.getInstance();
+        c.setTime(startDate);
+        c.add(Calendar.DATE, 1);
+        Date endDate = c.getTime();
+
+        return appointmentRepository.findAllByDoctorIdAndStartDateTimeBetween(doctorId, startDate, endDate);
     }
 }

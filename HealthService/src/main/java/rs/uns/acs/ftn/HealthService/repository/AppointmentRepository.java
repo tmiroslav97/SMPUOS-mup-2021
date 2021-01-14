@@ -15,4 +15,6 @@ public interface AppointmentRepository extends MongoRepository<Appointment, Stri
     Integer count(Date startDateIme, Date endDateTime, String doctorId);
 
     List<Appointment> findAllByDoctorId(String doctorId);
+
+    List<Appointment> findAllByDoctorIdAndStartDateTimeBetween(String doctorId, Date startDate, Date endDate);
 }
