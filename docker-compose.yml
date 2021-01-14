@@ -119,18 +119,18 @@ services:
       - eureka-service
       - mongodb
 
-    front:
-      image: front
-      container_name: front
-      build: 
-        context: ./frontend
-        dockerfile: Dockerfile
-      tty: true
-      restart: on-failure
-      networks:
-        - static-network
-      ports:
-        - "3000:3000"
+  frontend:
+    image: frontend
+    container_name: frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    tty: true
+    restart: on-failure
+    networks:
+      - static-network
+    ports:
+      - "3000:3000"
 
   # police-service:
   #   image: police-service
@@ -173,7 +173,7 @@ services:
       - counter-service
       - vehicle-service
       - health-service
-      - police-service
+      #- police-service
 
   mysql-centralregistry:
     image: mysql:8.0.19
