@@ -15,4 +15,6 @@ Autori:
 
 Naziv mikroservisa | Kratak opis | Port | Detljano
 ------------ | ------------- | ------------- | -------------
-Eureka service discovery | Za konfiguraciju service discovery je koriscena eureka. |  8761 |  [Detaljno](eureka-service/README.md)
+EurekaService | Za konfiguraciju service discovery je koriscena eureka. |  8761 |  [Detaljno](EurekaService/README.md)
+Zuul | Za service gateway je koriscen zuul. |  8082 |  [Detaljno](Zuul/README.md)
+HealthService | Servis vezan za zdravstvo. |  8086 |  [Detaljno](HealthService/README.md)
