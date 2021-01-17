@@ -2,7 +2,6 @@ package rs.uns.acs.ftn.VehicleService.model;
 
 import javax.persistence.*;
 import java.util.Calendar;
-import java.util.Date;
 
 @Entity
 @Table(name = "tickets")
@@ -13,13 +12,13 @@ public class TicketPOJO {
     private Integer ID;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date", nullable = true)
+    @Column(name = "datee")
     private Calendar date;
 
-    @Column(name = "offense", nullable = true)
+    @Column(name = "offense")
     private String offense;
 
-    @Column(name = "points", nullable = true)
+    @Column(name = "points")
     private Integer points;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

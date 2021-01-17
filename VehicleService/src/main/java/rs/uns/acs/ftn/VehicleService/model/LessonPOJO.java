@@ -1,12 +1,9 @@
 package rs.uns.acs.ftn.VehicleService.model;
 
-import rs.uns.acs.ftn.VehicleService.dto.AddLessonDTO;
 import rs.uns.acs.ftn.VehicleService.model.enums.SubjectEnum;
-import rs.uns.acs.ftn.VehicleService.repository.PersonRepository;
 
 import javax.persistence.*;
 import java.util.Calendar;
-import java.util.Date;
 
 @Entity
 @Table(name = "lessons")

@@ -1,9 +1,9 @@
 package rs.uns.acs.ftn.VehicleService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import javax.swing.*;
 import java.util.Calendar;
-import java.util.Date;
 
 @Entity
 @Table(name = "exams")
@@ -14,7 +14,7 @@ public class ExamPOJO {
     private Integer ID;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date", nullable = false)
+    @Column(name = "datee", nullable = false)
     private Calendar date;
 
     @Column(name = "passed", nullable = false)
@@ -25,10 +25,6 @@ public class ExamPOJO {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PersonPOJO examinar;
-
-    public ExamPOJO () {
-        super();
-    }
 
     public void setID(Integer ID) {
         this.ID = ID;

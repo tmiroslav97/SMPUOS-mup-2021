@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import rs.uns.acs.ftn.VehicleService.model.PersonPOJO;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 
 @Repository

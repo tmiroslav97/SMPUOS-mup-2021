@@ -2,8 +2,7 @@ package rs.uns.acs.ftn.VehicleService.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import rs.uns.acs.ftn.VehicleService.controller.LessonController;
-import rs.uns.acs.ftn.VehicleService.dto.AddLessonDTO;
+import rs.uns.acs.ftn.VehicleService.dto.LessonDTO;
 import rs.uns.acs.ftn.VehicleService.model.LessonPOJO;
 import rs.uns.acs.ftn.VehicleService.model.PersonPOJO;
 import rs.uns.acs.ftn.VehicleService.model.enums.RoleEnum;
@@ -13,7 +12,6 @@ import rs.uns.acs.ftn.VehicleService.repository.PersonRepository;
 import rs.uns.acs.ftn.VehicleService.util.Utility;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 @Service
 public class LessonService {
@@ -27,17 +25,17 @@ public class LessonService {
     @Autowired
     PersonService personService;
 
-    public ArrayList<LessonPOJO> getLessons() {
-        ArrayList<LessonPOJO> retVal = new ArrayList<LessonPOJO>();
+    public ArrayList<LessonDTO> getLessons() {
+        ArrayList<LessonDTO> retVal = new ArrayList<LessonDTO>();
         for (LessonPOJO l : lessonRepository.findAll()) {
-            retVal.add(l);
+            retVal.add(new LessonDTO(l));
         }
         return retVal;
     }
 
 
 
-    public String addLesson (AddLessonDTO dto) {
+    public String addLesson (LessonDTO dto) {
         // Proveri izostavljena polja
         if (dto.getDate() == null) {
             return "You must submit a date! ";

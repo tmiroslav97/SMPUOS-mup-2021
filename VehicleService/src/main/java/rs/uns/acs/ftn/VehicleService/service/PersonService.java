@@ -3,8 +3,13 @@ package rs.uns.acs.ftn.VehicleService.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.uns.acs.ftn.VehicleService.dto.PersonDTO;
+import rs.uns.acs.ftn.VehicleService.dto.RecordDTO;
+import rs.uns.acs.ftn.VehicleService.dto.TicketDTO;
+import rs.uns.acs.ftn.VehicleService.model.LicencePOJO;
 import rs.uns.acs.ftn.VehicleService.model.PersonPOJO;
+import rs.uns.acs.ftn.VehicleService.model.TicketPOJO;
 import rs.uns.acs.ftn.VehicleService.model.enums.RoleEnum;
+import rs.uns.acs.ftn.VehicleService.repository.LicenceRepository;
 import rs.uns.acs.ftn.VehicleService.repository.PersonRepository;
 import rs.uns.acs.ftn.VehicleService.util.Utility;
 import sun.awt.X11.XSystemTrayPeer;
@@ -19,6 +24,10 @@ public class PersonService {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private LicenceRepository licenceRepository;
+
 
     public ArrayList<PersonDTO> getPersons() {
         ArrayList<PersonDTO> retVal = new ArrayList<PersonDTO>();
@@ -95,4 +104,34 @@ public class PersonService {
         personRepository.save(instructor);
         return "An instructor is born";
     }
+
+
+    public RecordDTO getRecord (String UID) {
+        RecordDTO retVal = new RecordDTO();
+        ArrayList<PersonPOJO> person = personRepository.getPersonByUID(UID);
+        if (person.size() != 1) {
+            return null;
+        }
+        retVal.setfName(person.get(0).getfName());
+        retVal.setlName(person.get(0).getlName());
+        retVal.setExpired("true");
+
+        List<LicencePOJO> licences = licenceRepository.getByID(person.get(0).getID());
+        Integer sum = 0;
+        for (LicencePOJO l : licences) {
+            System.out.println(" * Licenca");
+            for (TicketPOJO t : l.getTickets()) {
+                System.out.println(" * Tiket");
+                sum += t.getPoints();
+            }
+            if (l.isValid()) {
+                retVal.setExpired("false");
+                retVal.setExpirationDate(Utility.calToStr(l.getExpirationDate()));
+            }
+        }
+        retVal.setPoints(sum);
+
+        return retVal;
+    }
+
 }

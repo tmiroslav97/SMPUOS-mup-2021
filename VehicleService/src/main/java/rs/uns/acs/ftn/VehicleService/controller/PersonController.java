@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import rs.uns.acs.ftn.VehicleService.dto.PersonDTO;
+import rs.uns.acs.ftn.VehicleService.dto.RecordDTO;
 import rs.uns.acs.ftn.VehicleService.dto.UIDDTO;
 import rs.uns.acs.ftn.VehicleService.model.PersonPOJO;
 import rs.uns.acs.ftn.VehicleService.service.PersonService;
@@ -52,21 +53,13 @@ public class PersonController {
         return new ResponseEntity<String>(retVal, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "record", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON,
+                method = RequestMethod.GET)
+    public ResponseEntity<RecordDTO> getRecord (@RequestBody UIDDTO UID) {
+        RecordDTO retVal = personService.getRecord(UID.getUID());
+        return new ResponseEntity<RecordDTO>(retVal, HttpStatus.OK);
+    }
+
+
+
 }
-
-
-
-/*
-method = RequestMethod.GET
-
-
-
-* @GetMapping(value = "/admin-all")
-	@PreAuthorize("hasAuthority('CENTRE_ADMINISTRATOR')")
-	public ResponseEntity<List<ClinicDTO>> getAllAdminClinics() {
-
-		List<ClinicDTO> clinics = clinicService.findAdminAll();
-
-		return new ResponseEntity<List<ClinicDTO>>(clinics, HttpStatus.OK);
-	}
-* */

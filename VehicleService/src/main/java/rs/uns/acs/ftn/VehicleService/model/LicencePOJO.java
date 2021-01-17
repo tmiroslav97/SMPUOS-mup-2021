@@ -11,8 +11,9 @@ import java.util.List;
 @Table(name = "licences")
 public class LicencePOJO {
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "origin_date", nullable = false)
-    private Date originDate;
+    private Calendar originDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "expiration_date", nullable = false)
@@ -35,11 +36,11 @@ public class LicencePOJO {
         super();
     }
 
-    public void setOriginDate (Date originDate) {
+    public void setOriginDate (Calendar originDate) {
         this.originDate = originDate;
     }
 
-    public Date getOriginDate () {
+    public Calendar getOriginDate () {
         return originDate;
     }
 
