@@ -13,22 +13,22 @@ services:
     ports:
       - "8761:8761"
   
-  configuration-service:
-    image: configuration-service
-    container_name: configuration-service
-    build: 
-      context: ./ConfigurationService
-      dockerfile: Dockerfile
-    environment:
-      REGISTRY_HOST: eureka-service
-    tty: true
-    restart: on-failure
-    networks:
-      - static-network
-    ports:
-      - "8888:8888"
-    depends_on: 
-      - eureka-service
+  # configuration-service:
+  #   image: configuration-service
+  #   container_name: configuration-service
+  #   build: 
+  #     context: ./ConfigurationService
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     REGISTRY_HOST: eureka-service
+  #   tty: true
+  #   restart: on-failure
+  #   networks:
+  #     - static-network
+  #   ports:
+  #     - "8888:8888"
+  #   depends_on: 
+  #     - eureka-service
   
   centralregistry-service:
     image: centralregistry-service
@@ -213,6 +213,7 @@ services:
 
   mongodb:
     image: mongo
+    container_name: mongodb
     volumes:
       - db-data:/var/lib/mongo-data
   
@@ -228,14 +229,6 @@ services:
   #   volumes:
   #     - db-data:/var/lib/mysql-police
 
-  rabbitmq-broker:
-      image: rabbitmq:management-alpine
-      container_name: rabbitmq-broker
-      ports:
-        - 5672:5672
-        - 15672:15672
-      networks:
-        - static-network
 volumes:
   db-data:
 
