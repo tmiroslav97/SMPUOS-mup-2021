@@ -22,9 +22,6 @@ public abstract class AbstractRESTController<T, ID extends Serializable> {
 
     private Logger logger = LoggerFactory.getLogger(AbstractRESTController.class);
 
-    @Value("${general.pageSize}")
-    protected Integer pageSize;
-
     private AbstractCRUDService<T, ID> service;
 
     /**
@@ -37,22 +34,13 @@ public abstract class AbstractRESTController<T, ID extends Serializable> {
     /**
      * Get all entities from database. Pageable.
      *
-     * @param page Number of page
      * @return All selected Entities from page
      */
     @RequestMapping(method = RequestMethod.GET)
-    public Map<String, Object> findAll(
-            @RequestParam(name = "page", defaultValue = "0") Integer page,
-            @RequestParam(name = "sort", defaultValue = "") String sort
-    ) {
-        List<Order> orders = getOrders(sort);
-        Page<T> all = null;
-        if (orders.size() != 0) {
-            all = service.findAll(PageRequest.of(page, pageSize, Sort.by(orders)));
-        } else {
-            all = service.findAll(PageRequest.of(page, pageSize, Sort.by(orders)));
-        }
-        return prepareListPage(all);
+    public Map<String, Object> findAll() {
+        List<T> all = service.findAll();
+
+        return prepareList(all);
     }
 
     @RequestMapping(value = "findByIds", method = RequestMethod.GET)
@@ -146,6 +134,12 @@ public abstract class AbstractRESTController<T, ID extends Serializable> {
         m.put("page", page.getNumber());
         m.put("totalPages", page.getTotalPages());
         m.put("numberOfElements", page.getTotalElements());
+        return m;
+    }
+
+    protected Map<String, Object> prepareList(List<T> results) {
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("elements", results);
         return m;
     }
 
