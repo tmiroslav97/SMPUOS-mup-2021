@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="CounterService" />
+        <module name="HealthService" />
+        <module name="EurekaService" />
+        <module name="Zuul" />
+        <module name="CentralRegistryService" />
+        <module name="ConfigurationService" />
+        <module name="VehicleService" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CentralRegistryService" target="1.8" />
+      <module name="ConfigurationService" target="1.8" />
+      <module name="CounterService" target="1.8" />
+      <module name="EurekaService" target="1.8" />
+      <module name="HealthService" target="1.8" />
+      <module name="VehicleService" target="1.8" />
+      <module name="Zuul" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="CentralRegistryService" options="-parameters" />
+      <module name="ConfigurationService" options="-parameters" />
+      <module name="CounterService" options="-parameters" />
+      <module name="EurekaService" options="-parameters" />
+      <module name="HealthService" options="-parameters" />
+      <module name="VehicleService" options="-parameters" />
+      <module name="Zuul" options="-parameters" />
+    </option>
+  </component>
+</project>
