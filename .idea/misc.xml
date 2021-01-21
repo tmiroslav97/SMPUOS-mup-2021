@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/Zuul/pom.xml" />
+        <option value="$PROJECT_DIR$/EurekaService/pom.xml" />
+        <option value="$PROJECT_DIR$/HealthService/pom.xml" />
+        <option value="$PROJECT_DIR$/CounterService/pom.xml" />
+        <option value="$PROJECT_DIR$/VehicleService/pom.xml" />
+        <option value="$PROJECT_DIR$/ConfigurationService/pom.xml" />
+        <option value="$PROJECT_DIR$/CentralRegistryService/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+</project>
