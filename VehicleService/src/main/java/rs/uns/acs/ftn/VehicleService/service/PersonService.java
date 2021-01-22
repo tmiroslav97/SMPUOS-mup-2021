@@ -2,6 +2,8 @@ package rs.uns.acs.ftn.VehicleService.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
 import rs.uns.acs.ftn.VehicleService.dto.PersonDTO;
 import rs.uns.acs.ftn.VehicleService.dto.RecordDTO;
 import rs.uns.acs.ftn.VehicleService.dto.TicketDTO;
@@ -78,6 +80,11 @@ public class PersonService {
         // Proveri sa centralom
         ////////////////////////////
         // TODO
+
+        RestTemplate restTemplate = new RestTemplate();
+        String restTestString = restTemplate.getForObject ();
+
+
         ////////////////////////////
 
         // Upisi ucenika
