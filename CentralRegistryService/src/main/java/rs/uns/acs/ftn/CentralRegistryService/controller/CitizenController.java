@@ -19,7 +19,6 @@ import java.util.Map;
 public class CitizenController extends AbstractRESTController<Citizen, Long>{
 
     private CitizenService citizenService;
-
     private JournalService journalService;
 
     public CitizenController(CitizenServiceImpl citizenService, JournalServiceImpl journalService) {
@@ -45,8 +44,8 @@ public class CitizenController extends AbstractRESTController<Citizen, Long>{
     }
 
     @RequestMapping(value = "/exists", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public boolean citizenExists(@RequestBody CitizenExistsDto citizenExistsDto) {
-        return citizenService.find(citizenExistsDto);
+    public ResponseEntity<?> citizenExists(@RequestBody CitizenExistsDto citizenExistsDto) {
+        return ResponseEntity.ok(citizenService.find(citizenExistsDto));
     }
 
 }
