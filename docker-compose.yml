@@ -52,27 +52,27 @@ services:
       - eureka-service
       - mysql-centralregistry
 
-  # counter-service:
-  #   image: counter-service
-  #   container_name: counter-service
-  #   build: 
-  #     context: ./CounterService
-  #     dockerfile: Dockerfile
-  #   tty: true
-  #   restart: on-failure
-  #   networks:
-  #     - static-network
-  #   ports:
-  #     - "8084:8084"
-  #   environment:
-  #     REGISTRY_HOST: eureka-service
-  #     DATABASE_USERNAME: root
-  #     DATABASE_PASSWORD: root
-  #     DATABASE_DOMAIN: mysql-counter
-  #     DATABASE_SCHEMA: counter_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-  #   depends_on: 
-  #     - eureka-service
-  #     - mysql-counter
+  counter-service:
+    image: counter-service
+    container_name: counter-service
+    build: 
+      context: ./CounterService
+      dockerfile: Dockerfile
+    tty: true
+    restart: on-failure
+    networks:
+      - static-network
+    ports:
+      - "8084:8084"
+    environment:
+      REGISTRY_HOST: eureka-service
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: root
+      DATABASE_DOMAIN: mysql-counter
+      DATABASE_SCHEMA: counter_db?createDatabaseIfNotExist=true&serverTimezone=UTC
+    depends_on: 
+      - eureka-service
+      - mysql-counter
 
   vehicle-service:
     image: vehicle-service
@@ -170,7 +170,7 @@ services:
     depends_on:
       - eureka-service
       - centralregistry-service
-      # - counter-service
+      - counter-service
       - vehicle-service
       - health-service
       - police-service
@@ -187,20 +187,20 @@ services:
     volumes:
       - db-data:/var/lib/mysql-centralregistry
 
-  # mysql-counter:
-  #   image: mysql:8.0.19
-  #   container_name: mysql-counter
-  #   restart: always
-  #   networks:
-  #     - static-network
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: root
-  #     MYSQL_DATABASE: counter_db
-  #   volumes:
-  #     - db-data:/var/lib/mysql-counter
+  mysql-counter:
+    image: mysql:8.0.19
+    container_name: mysql-counter
+    restart: always
+    networks:
+      - static-network
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: counter_db
+    volumes:
+      - db-data:/var/lib/mysql-counter
 
   mysql-vehicle:
-    image: mysql:8.0.19
+    image: mysql:8.0.22
     container_name: mysql-vehicle
     restart: always
     networks:
