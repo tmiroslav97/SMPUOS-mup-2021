@@ -41,7 +41,7 @@ public class PersonController {
 
     @RequestMapping(value = "addStudent", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON,
                 method = RequestMethod.POST)
-    public ResponseEntity<String> addStudent(@RequestBody PersonDTO p) {
+    public ResponseEntity<String> addStudent(@RequestBody PersonDTO p) throws Exception {
         String retVal = personService.signIn(p);
         return new ResponseEntity<String>(retVal, HttpStatus.OK);
     }
