@@ -1,7 +1,11 @@
 package rs.uns.acs.ftn.VehicleService.service;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import rs.uns.acs.ftn.VehicleService.dto.CheckPersonDTO;
 import rs.uns.acs.ftn.VehicleService.dto.PersonDTO;
 import rs.uns.acs.ftn.VehicleService.dto.RecordDTO;
 import rs.uns.acs.ftn.VehicleService.dto.TicketDTO;
@@ -14,10 +18,15 @@ import rs.uns.acs.ftn.VehicleService.repository.PersonRepository;
 import rs.uns.acs.ftn.VehicleService.util.Utility;
 import sun.awt.X11.XSystemTrayPeer;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.MultivaluedMap;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
 
 @Service
 public class PersonService {
@@ -38,7 +47,7 @@ public class PersonService {
         return retVal;
     }
 
-    public String signIn(PersonDTO p) {
+    public String signIn(PersonDTO p) throws Exception {
         // Provera podataka
         if (p.getlName() == null) {
             return "You must submit the candidates last name. ";
@@ -55,6 +64,9 @@ public class PersonService {
         if (Utility.strToCal(p.getBirthday()) == null) {
             return "You must submit the candidates birthdate. ";
         }
+        if (p.getFathersName() == null) {
+            return "You must submit the candidates fatners' name! ";
+        }
         PersonPOJO student = new PersonPOJO(p);
         // Proveri interno
         Integer duplicates = personRepository.countByUID(student.getUID());
@@ -67,10 +79,10 @@ public class PersonService {
         shift.set(Calendar.YEAR, student.getBirthday().get(Calendar.YEAR) + 18);
         shift.set(Calendar.MONTH, student.getBirthday().get(Calendar.MONTH));
         shift.set(Calendar.DAY_OF_MONTH, student.getBirthday().get(Calendar.DAY_OF_MONTH) - 1);
-        System.out.println("* shiftL " + Utility.calToStr(shift));
-        System.out.println("* now " + Utility.calToStr(now));
+//        System.out.println("* shiftL " + Utility.calToStr(shift));
+//        System.out.println("* now " + Utility.calToStr(now));
         Integer diff = now.compareTo(shift);
-        System.out.println("* DiffL " + diff);
+//        System.out.println("* DiffL " + diff);
 
         if (diff <=  0) {
             return "The candidate is too young. ";
@@ -78,7 +90,87 @@ public class PersonService {
         // Proveri sa centralom
         ////////////////////////////
         // TODO
+        CheckPersonDTO checkPerson = new CheckPersonDTO(p);
+
+
+        System.out.println(" * * * ");
+        System.out.println(" * * * ");
+        System.out.println(" * JSON: " + "{" +
+                "\"name\": \"" + checkPerson.getName() +
+                "\", \"surname\": \"" + checkPerson.getSurname() +
+                "\", \"uid\": \"" + checkPerson.getUid() +
+                "\", \"fathersName\": '" + checkPerson.getFathersName() +
+                "\" }");
+        System.out.println(" * * * ");
+        System.out.println(" * * * ");
+
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String data = "{" +
+                "\"name\": \"" + checkPerson.getName() +
+                "\", \"surname\": \"" + checkPerson.getSurname() +
+                "\", \"uid\": \"" + checkPerson.getUid() +
+                "\", \"fathersName\": \"" + checkPerson.getFathersName() +
+                "\" }";
+        HttpEntity<?> entity = new HttpEntity<Object>(data, headers);
+        ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/citizen/exists", HttpMethod.PUT, entity, Boolean.class);
+        Boolean exists = responseEntity.getBody();
+        if (!exists) {
+            return "The person is not a registered citizen. ";
+        }
+
+        //        Boolean exists = responseEntity.getBody();
+//        URL url = new URL("http://localhost:8083/citizen/exists");
+//        HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+//        httpCon.setDoOutput(true);
+//        httpCon.setRequestMethod("PUT");
+//        httpCon.connect();
+//        OutputStream os = httpCon.getOutputStream();
+//        OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+//        osw.write(
+//                "{" +
+//                        "'name': '" + checkPerson.getName() +
+//                        "' 'surname': '" + checkPerson.getSurname() +
+//                        "' 'uid': '" + checkPerson.getUid() +
+//                        "' 'fathersName': '" + checkPerson.getFathersName() +
+//                    "' }"
+//        );
+//        osw.flush();
+//        osw.close();
+//
+//
+//        httpCon.getInputStream();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         ////////////////////////////
+
+        /*
+        *
+{
+    "name": "Dragan",
+    "surname": "Jovic",
+    "uid": "0210996180975",
+    "fathersName": "Zoran"
+}
+        * */
+
 
         // Upisi ucenika
         student.setRole(RoleEnum.STUDENT);
