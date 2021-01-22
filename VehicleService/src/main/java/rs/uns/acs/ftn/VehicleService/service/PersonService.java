@@ -1,6 +1,7 @@
 package rs.uns.acs.ftn.VehicleService.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
@@ -84,6 +85,23 @@ public class PersonService {
 //        RestTemplate restTemplate = new RestTemplate();
 //        String restTestString = restTemplate.getForObject ();
 
+
+
+//        RestTemplate restTemplate = new RestTemplate();
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        String data = "{" +
+//                "\"name\": \"" + checkPerson.getName() +
+//                "\", \"surname\": \"" + checkPerson.getSurname() +
+//                "\", \"uid\": \"" + checkPerson.getUid() +
+//                "\", \"fathersName\": \"" + checkPerson.getFathersName() +
+//                "\" }";
+//        HttpEntity<?> entity = new HttpEntity<Object>(data, headers);
+//        ResponseEntity<Boolean> responseEntity = restTemplate.exchange("http://localhost:8083/citizen/exists", HttpMethod.PUT, entity, Boolean.class);
+//        Boolean exists = responseEntity.getBody();
+//        if (!exists) {
+//            return "The person is not a registered citizen. ";
+//        }
 
         ////////////////////////////
 
