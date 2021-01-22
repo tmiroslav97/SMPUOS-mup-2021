@@ -81,8 +81,8 @@ public class PersonService {
         ////////////////////////////
         // TODO
 
-        RestTemplate restTemplate = new RestTemplate();
-        String restTestString = restTemplate.getForObject ();
+//        RestTemplate restTemplate = new RestTemplate();
+//        String restTestString = restTemplate.getForObject ();
 
 
         ////////////////////////////
