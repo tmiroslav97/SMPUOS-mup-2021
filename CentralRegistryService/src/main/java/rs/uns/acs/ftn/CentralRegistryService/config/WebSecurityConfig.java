@@ -20,13 +20,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET).permitAll()
                 .antMatchers(HttpMethod.POST).permitAll()
-                .anyRequest().authenticated()
+                .antMatchers(HttpMethod.PUT).permitAll()
+                .antMatchers(HttpMethod.DELETE).permitAll()
+                .antMatchers(HttpMethod.HEAD).permitAll()
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .anyRequest().permitAll()
                 .and()
                 .cors();
     }
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers(HttpMethod.GET, "/test/hello");
+        web.ignoring().antMatchers(HttpMethod.GET, "/*");
+        web.ignoring().antMatchers(HttpMethod.POST, "/*");
+        web.ignoring().antMatchers(HttpMethod.PUT, "/*");
+        web.ignoring().antMatchers(HttpMethod.PUT, "/citizen/exists");
+        web.ignoring().antMatchers(HttpMethod.DELETE, "/*");
+        web.ignoring().antMatchers(HttpMethod.HEAD, "/*");
+        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/*");
     }
 }
