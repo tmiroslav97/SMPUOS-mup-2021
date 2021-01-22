@@ -1,5 +1,7 @@
 package rs.uns.acs.ftn.CentralRegistryService.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import rs.uns.acs.ftn.CentralRegistryService.common.db.DbColumnConstants;
 import rs.uns.acs.ftn.CentralRegistryService.common.db.DbTableConstants;
@@ -18,6 +20,7 @@ import java.sql.Date;
 @Builder
 @Entity
 @Table(name = DbTableConstants.REQUEST)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

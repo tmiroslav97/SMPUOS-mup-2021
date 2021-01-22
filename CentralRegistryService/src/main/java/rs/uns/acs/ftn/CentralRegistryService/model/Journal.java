@@ -1,13 +1,13 @@
 package rs.uns.acs.ftn.CentralRegistryService.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import rs.uns.acs.ftn.CentralRegistryService.common.db.DbColumnConstants;
 import rs.uns.acs.ftn.CentralRegistryService.common.db.DbTableConstants;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @ToString
 @AllArgsConstructor
@@ -17,6 +17,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = DbTableConstants.JOURNAL)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Journal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,9 +34,6 @@ public class Journal {
 
     @Column(name = DbColumnConstants.VALID_FROM, nullable = false)
     private java.util.Date validFrom = new Date();
-
-    @Column(name = DbColumnConstants.VALID_UNTIL)
-    private Date validUntil;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Citizen citizen;

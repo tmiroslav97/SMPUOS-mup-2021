@@ -6,4 +6,5 @@ import rs.uns.acs.ftn.CentralRegistryService.model.Citizen;
 
 @Repository
 public interface CitizenRepository extends JpaRepository<Citizen, Long> {
+    boolean existsByUidAndNameAndSurnameAndFathersName(String uid, String name, String surname, String fathersName);
 }

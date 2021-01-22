@@ -1,5 +1,8 @@
 package rs.uns.acs.ftn.CentralRegistryService.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import rs.uns.acs.ftn.CentralRegistryService.common.db.DbColumnConstants;
 import rs.uns.acs.ftn.CentralRegistryService.common.db.DbTableConstants;
@@ -10,15 +13,13 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
-@ToString
-@AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@Builder
+@AllArgsConstructor
 @Entity
+@Getter
+@Setter
 @Table(name = DbTableConstants.CITIZEN)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Citizen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +42,7 @@ public class Citizen {
 
     @Enumerated(EnumType.STRING)
     @Column(name = DbColumnConstants.GENDER, nullable = false)
-    private Gender distanceLimitFlag;
+    private Gender gender;
 
     @OneToMany(mappedBy = "citizen",
             cascade = CascadeType.ALL)
