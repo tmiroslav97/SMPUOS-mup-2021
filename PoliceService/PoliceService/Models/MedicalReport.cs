@@ -7,17 +7,13 @@ using System.Threading.Tasks;
 
 namespace PoliceService.Models
 {
-    public class Person
+    public class MedicalReport
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string UID { get; set; }
-
-        public string FatherName { get; set; }
-        public string Email { get; set; }
+        public Person person { get; set; }
+        public string Report { get; set; }
+        public bool Approved { get; set; }
     }
 }
