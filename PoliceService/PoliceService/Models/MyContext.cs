@@ -17,5 +17,6 @@ namespace PoliceService.Models
         public DbSet<Request> requests { get; set; }
         public DbSet<WeaponLicence> licences { get; set; }
         public DbSet<Person> people { get; set; }
+        public DbSet<MedicalReport> reports { get; set; }
     }
 }
