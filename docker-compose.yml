@@ -200,7 +200,7 @@ services:
       - db-data:/var/lib/mysql-counter
 
   mysql-vehicle:
-    image: mysql:8.0.22
+    image: mysql:8.0.19
     container_name: mysql-vehicle
     restart: always
     networks:
