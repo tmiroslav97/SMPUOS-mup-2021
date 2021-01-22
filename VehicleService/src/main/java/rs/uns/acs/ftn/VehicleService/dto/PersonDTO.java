@@ -19,6 +19,8 @@ public class PersonDTO {
 
     private String UID;
 
+    private String fathersName;
+
     public PersonDTO (String fName, String lName, RoleEnum role, String UID) {
         this.fName = fName;
         this.lName = lName;
@@ -71,5 +73,14 @@ public class PersonDTO {
 
     public String getUID() {
         return UID;
+    }
+
+
+    public void setFathersName(String fathersName) {
+        this.fathersName = fathersName;
+    }
+
+    public String getFathersName() {
+        return fathersName;
     }
 }
