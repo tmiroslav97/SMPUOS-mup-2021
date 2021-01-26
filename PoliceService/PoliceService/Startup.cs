@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using PoliceService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Steeltoe.Discovery.Client;
 
 namespace PoliceService
 {
@@ -24,6 +27,11 @@ namespace PoliceService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<Context>(options =>
+            options.UseMySQL(Configuration.GetConnectionString("PoliceServiceConn")));
+            // services.AddDbContextPool<Context>(options => options.UseMySql(Configuration.GetConnectionString("PoliceServiceConn")));
+            services.AddHttpClient();
+            services.AddDiscoveryClient(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +53,7 @@ namespace PoliceService
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseDiscoveryClient();
 
             app.UseEndpoints(endpoints =>
             {
